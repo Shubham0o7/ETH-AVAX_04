@@ -1,10 +1,10 @@
 # Project Title
 
-Create ERC-20 Token Contract
+Create Degen Token Contract
 
 ## Description
 
-ERC_Token is a simple ERC20 token contract written in Solidity. It extends the OpenZeppelin ERC20 implementation to create a custom token using npx hardhat network. The contract includes additional functionality for minting and burning tokens, along with a modified transfer function.
+
 
 ## Getting Started
 
@@ -12,9 +12,10 @@ ERC_Token is a simple ERC20 token contract written in Solidity. It extends the O
 
 To deploy and interact with this contract, you will need:
 
-* A development environment such as Remix or Truffle.
+* Development environment such as Remix or Truffle.
 * Access to an Ethereum network (local or testnet) to deploy the contract.
-* The OpenZeppelin library installed.
+* OpenZeppelin library installed.
+* Metamask account created.
 
 ### Contract Features
 
@@ -23,6 +24,8 @@ To deploy and interact with this contract, you will need:
 * `Transferring Tokens`: The transfer() function, as the name suggests, is used to transfer tokens from your address to another address. It uses two paramters, i.e, the recipient's address and the amount of tokens to transfer.
 
 * `Burning Tokens`: The burn() function is used to destroy tokens from your address.
+
+* `Custom Item Redemption`: Users can redeem specific items by providing an item number, subject to certain balance requirements.
 
 ### Contract Functions
 
@@ -47,11 +50,48 @@ function burn(uint256 amount) external {
         _burn(msg.sender, amount);
 ```
 
+* `reedem`: Users can redeem specific items using the select_item function, which internally calls the redeem function. The items available for redemption are:
+Item 101: Grossmutant (Cost: 100 tokens)
+Item 102: Deadmutant (Cost: 500 tokens)
+Item 103: Decayman (Cost: 900 tokens)
+```
+ function select_item(uint256 item_num) external payable {
+        redeem(item_num);
+        }
+
+    function redeem(uint256 item_num) public payable {
+        require(item_num >= 101 && item_num <= 103, "Invalid item number");
+
+        if (item_num == 101) {
+            require(balanceOf(msg.sender) >= 100,"Insufficient balance for Grossmutant");
+            _transfer(msg.sender, minter, 100);
+            console.log("Grossmutant transfered to your account");
+        } 
+        else if (item_num == 102) {
+            require(
+                balanceOf(msg.sender) >= 500,"Insufficient balance for Deadmutant");
+            _transfer(msg.sender, minter, 500);
+            console.log("Deadmutant transfered to your account");
+
+           
+        } else if (item_num == 103) {
+            require(
+                balanceOf(msg.sender) >= 900,"Insufficient balance for Decayman");
+            
+            _transfer(msg.sender , minter, 900);
+            console.log("Decayman transfered to your account");
+
+            
+        }
+
+        
+    }
+```
 ### Implementation
 
 1. Open your preferred Solidity development environment (e.g., Remix).
-2. Create a new Solidity file or import ERC-20 Token.sol file.
+2. Create a new Solidity file or import Degen Token.sol file.
 3. Make sure you have the OpenZeppelin library imported correctly.
 4. Compile the contract using the Solidity compiler.
-5. Deploy the contract to your desired Ethereum network, ensuring that you have sufficient funds to cover deployment costs.
+5. Deploy the contract to your metamask account, ensuring that you have sufficient funds to cover deployment costs.
 6. Take note of the deployed contract's address for future interactions.
