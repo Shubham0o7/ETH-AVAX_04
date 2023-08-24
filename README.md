@@ -4,7 +4,7 @@ Create Degen Token Contract
 
 ## Description
 
-
+Degen Token (DGN) is an innovative ERC-20 token that reimagines the way users interact with virtual assets in the gaming and collecting world. Our smart contract facilitates secure, transparent, and efficient transactions, enabling users to buy, sell, and trade virtual items directly in a peer-to-peer marketplace.
 
 ## Getting Started
 
